@@ -30,5 +30,32 @@
   <footer>
     <p>&copy; 2025 [Your Name]. All Rights Reserved.</p>
   </footer>
+    <script>
+    const githubUsername = "uttamkumar37";
+    const container = document.getElementById("github-repos");
+
+    fetch(`https://api.github.com/users/${githubUsername}/repos`)
+      .then(res => res.json())
+      .then(repos => {
+        repos.slice(0, 6).forEach(repo => {
+          const card = document.createElement("div");
+          card.className = "project-card";
+          card.innerHTML = `
+            <h2>${repo.name}</h2>
+            <p>${repo.description || "No description provided."}</p>
+            <a href="${repo.html_url}" target="_blank">View on GitHub</a>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        container.innerHTML = "<p>Unable to load GitHub repositories.</p>";
+        console.error(err);
+      });
+  </script>
+
+</body>
+</html>
+
 </body>
 </html>
